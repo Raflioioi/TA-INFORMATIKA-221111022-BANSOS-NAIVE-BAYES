@@ -12,6 +12,16 @@ function getRandom($array) {
 
 // Generate Profil Rasional
 function generateProfile($id, $is_layak) {
+    $kecamatan_map = [
+        'Blimbing' => ['Blimbing', 'Arjosari', 'Purwodadi', 'Kesatrian', 'Bunulrejo'],
+        'Kedungkandang' => ['Kedungkandang', 'Madyopuro', 'Lesanpuro', 'Sawojajar', 'Kotalama'],
+        'Klojen' => ['Klojen', 'Samaan', 'Penanggungan', 'Bareng', 'Kauman'],
+        'Lowokwaru' => ['Lowokwaru', 'Tlogomas', 'Dinoyo', 'Mojolangu', 'Tasikmadu'],
+        'Sukun' => ['Sukun', 'Tanjung', 'Pisangcandi', 'Bandulan', 'Gadang']
+    ];
+    $kecamatan = array_rand($kecamatan_map);
+    $kelurahan = getRandom($kecamatan_map[$kecamatan]);
+
     $nik = ($is_layak ? "333333" : "444444") . "3333" . str_pad($id, 6, "0", STR_PAD_LEFT);
     $kk = ($is_layak ? "333333" : "444444") . "3333" . str_pad($id + 100, 6, "0", STR_PAD_LEFT);
     $tahun = rand($is_layak ? 1960 : 1975, $is_layak ? 1990 : 1995);
@@ -76,7 +86,7 @@ function generateProfile($id, $is_layak) {
         $status_bantuan = 'Tidak Layak';
     }
 
-    return [$nik, $kk, $nama, $ttl, $jk, $status_kawin, $alamat, $pekerjaan, $penghasilan, $tanggungan, $kondisi_lantai, $kondisi_dinding, $kondisi_atap, $status_rumah, $pendidikan, $anak_sekolah, $aset, $pengeluaran, $listrik, $air, $kesehatan, $status_bantuan];
+    return [$nik, $kk, $nama, $ttl, $jk, $status_kawin, $alamat, $kecamatan, $kelurahan, $pekerjaan, $penghasilan, $tanggungan, $kondisi_lantai, $kondisi_dinding, $kondisi_atap, $status_rumah, $pendidikan, $anak_sekolah, $aset, $pengeluaran, $listrik, $air, $kesehatan, $status_bantuan];
 }
 
 for ($i = 1; $i <= 100; $i++) {
@@ -87,15 +97,15 @@ for ($i = 1; $i <= 100; $i++) {
 }
 
 // Tambahkan 2 Data Uji Coba (Proses)
-$dummy_data[] = ['1111111111111111', '1111111111111112', 'Agus Salim (Uji Coba Warga Miskin)', '1980-05-12', 'Laki-laki', 'Kawin', 'Desa Pinggiran', 'Tidak Bekerja', '< Rp 500.000', '> 4 Orang', 'Tanah / Kayu Kualitas Rendah', 'Bilik Bambu / Rumbia / Terpal', 'Ijuk / Rumbia / Daun', 'Numpang / Bebas Sewa (Fasum / Lahan orang lain)', 'Tidak Sekolah', 'Lebih dari 2 Anak Sekolah', 'Tidak Ada Aset Sama Sekali', '< Rp 500.000', 'Numpang / Tidak Ada Listrik', 'Mata Air Tidak Terlindung / Sungai / Air Hujan', 'Disabilitas Berat / Penyakit Menahun (Stroke/TBC)', 'Proses'];
-$dummy_data[] = ['2222222222222222', '2222222222222223', 'Wira Pradana (Uji Coba Warga Mampu)', '1990-05-12', 'Laki-laki', 'Kawin', 'Kota Elite', 'Wiraswasta / Pedagang', '> Rp 4.000.000', '0 - 2 Orang', 'Keramik / Marmer / Granit', 'Tembok Penuh (Diplester & Dicat)', 'Genteng Tanah Liat / Baja Ringan / Genteng Keramik', 'Milik Sendiri / Warisan', 'Sarjana / Perguruan Tinggi', '1 - 2 Anak Sekolah', 'Aset Mewah (Mobil / Lahan Kosong / Emas Murni)', '> Rp 4.000.000', 'Listrik > 1300 VA', 'PAM / Leding Meteran / Air Kemasan Bermerk', 'Sehat Fisik & Jasmani', 'Proses'];
+$dummy_data[] = ['1111111111111111', '1111111111111112', 'Agus Salim (Uji Coba Warga Miskin)', '1980-05-12', 'Laki-laki', 'Kawin', 'Desa Pinggiran', 'Kedungkandang', 'Kotalama', 'Tidak Bekerja', '< Rp 500.000', '> 4 Orang', 'Tanah / Kayu Kualitas Rendah', 'Bilik Bambu / Rumbia / Terpal', 'Ijuk / Rumbia / Daun', 'Numpang / Bebas Sewa (Fasum / Lahan orang lain)', 'Tidak Sekolah', 'Lebih dari 2 Anak Sekolah', 'Tidak Ada Aset Sama Sekali', '< Rp 500.000', 'Numpang / Tidak Ada Listrik', 'Mata Air Tidak Terlindung / Sungai / Air Hujan', 'Disabilitas Berat / Penyakit Menahun (Stroke/TBC)', 'Proses'];
+$dummy_data[] = ['2222222222222222', '2222222222222223', 'Wira Pradana (Uji Coba Warga Mampu)', '1990-05-12', 'Laki-laki', 'Kawin', 'Kota Elite', 'Lowokwaru', 'Tasikmadu', 'Wiraswasta / Pedagang', '> Rp 4.000.000', '0 - 2 Orang', 'Keramik / Marmer / Granit', 'Tembok Penuh (Diplester & Dicat)', 'Genteng Tanah Liat / Baja Ringan / Genteng Keramik', 'Milik Sendiri / Warisan', 'Sarjana / Perguruan Tinggi', '1 - 2 Anak Sekolah', 'Aset Mewah (Mobil / Lahan Kosong / Emas Murni)', '> Rp 4.000.000', 'Listrik > 1300 VA', 'PAM / Leding Meteran / Air Kemasan Bermerk', 'Sehat Fisik & Jasmani', 'Proses'];
 
 $berhasil = 0;
 
 foreach ($dummy_data as $b) {
     try {
-        $sql = "INSERT INTO warga (nik, no_kk, nama, tempat_tanggal_lahir, jenis_kelamin, status_perkawinan, alamat, pekerjaan, penghasilan, jumlah_tanggungan, kondisi_lantai, kondisi_dinding, kondisi_atap, status_kepemilikan_rumah, pendidikan_terakhir, jumlah_anak_sekolah, kepemilikan_aset, pengeluaran_bulanan, akses_listrik, akses_air, kondisi_kesehatan, status_bantuan) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO warga (nik, no_kk, nama, tempat_tanggal_lahir, jenis_kelamin, status_perkawinan, alamat, kecamatan, kelurahan, pekerjaan, penghasilan, jumlah_tanggungan, kondisi_lantai, kondisi_dinding, kondisi_atap, status_kepemilikan_rumah, pendidikan_terakhir, jumlah_anak_sekolah, kepemilikan_aset, pengeluaran_bulanan, akses_listrik, akses_air, kondisi_kesehatan, status_bantuan) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
         if($stmt->execute($b)) $berhasil++;
     } catch (Exception $e) {

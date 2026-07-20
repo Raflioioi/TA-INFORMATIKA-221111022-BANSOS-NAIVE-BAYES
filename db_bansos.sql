@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS `warga` (
   `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
   `status_perkawinan` varchar(50) NOT NULL,
   `alamat` text NOT NULL,
+  `kecamatan` varchar(100) DEFAULT NULL,
+  `kelurahan` varchar(100) DEFAULT NULL,
   `pekerjaan` varchar(100) NOT NULL,
   `penghasilan` varchar(50) NOT NULL,
   `jumlah_tanggungan` varchar(50) NOT NULL,

@@ -2,7 +2,22 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-$base_url = "http://localhost/bansos-app"; // Disesuaikan jika folder berbeda
+// Deteksi base URL secara dinamis agar berjalan baik di localhost/bansos-app maupun di Docker root
+$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+$host = $_SERVER['HTTP_HOST']; // Termasuk port jika ada (misal localhost:8080)
+$script_name = $_SERVER['SCRIPT_NAME'];
+$dir = dirname($script_name);
+
+if ($dir === '/' || $dir === '\\') {
+    $base_url = "$protocol://$host";
+} else {
+    $dir = str_replace('\\', '/', $dir);
+    // Jika diakses dari folder admin, arahkan base_url ke root aplikasi
+    if (strpos($dir, '/admin') !== false) {
+        $dir = substr($dir, 0, strpos($dir, '/admin'));
+    }
+    $base_url = "$protocol://$host" . rtrim($dir, '/');
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
