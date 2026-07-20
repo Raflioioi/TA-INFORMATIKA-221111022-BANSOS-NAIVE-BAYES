@@ -24,12 +24,12 @@ if (isset($_GET['delete'])) {
 
 // Handle Delete All
 if (isset($_GET['delete_all'])) {
-    $stmt = $pdo->prepare("TRUNCATE TABLE warga");
-    if ($stmt->execute()) {
+    try {
+        $pdo->exec("TRUNCATE TABLE warga");
         $_SESSION['msg'] = "Semua data warga berhasil dikosongkan.";
         $_SESSION['msg_type'] = "success";
-    } else {
-        $_SESSION['msg'] = "Gagal mengosongkan data warga.";
+    } catch (PDOException $e) {
+        $_SESSION['msg'] = "Gagal mengosongkan data warga: " . $e->getMessage();
         $_SESSION['msg_type'] = "error";
     }
     header('Location: warga.php');

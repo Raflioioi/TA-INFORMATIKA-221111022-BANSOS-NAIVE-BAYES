@@ -15,14 +15,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['proses_semua'])) {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, "");
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_TIMEOUT, 60); // Timeout 60 detik jika data sangat banyak
     $response = curl_exec($curl);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $curl_error = curl_error($curl);
     curl_close($curl);
 
     if ($httpcode !== 200 || !$response) {
         $error_message = "Gagal terhubung ke API Prediksi (Python) untuk memproses massal. Pastikan server Python berjalan di port 5000.";
+        if ($curl_error) {
+            $error_message .= " (Curl Error: $curl_error)";
+        }
         if ($response) {
             $err_data = json_decode($response, true);
             if (isset($err_data['error'])) {
@@ -87,10 +92,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_warga'])) {
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($curl);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $curl_error = curl_error($curl);
     curl_close($curl);
 
     if ($httpcode !== 200 || !$response) {
         $error_message = "Gagal terhubung ke API Prediksi (Python). Pastikan server Python berjalan di port 5000.";
+        if ($curl_error) {
+            $error_message .= " (Curl Error: $curl_error)";
+        }
         if ($response) {
             $err_data = json_decode($response, true);
             if (isset($err_data['error'])) {
