@@ -1,0 +1,5 @@
+fastapi==0.115.8
+uvicorn==0.34.0
+PyMySQL==1.1.2
+scikit-learn==1.8.0
+joblib==1.5.3
