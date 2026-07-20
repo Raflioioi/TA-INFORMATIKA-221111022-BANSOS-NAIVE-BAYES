@@ -129,7 +129,7 @@ if ($offset < 0) {
                     <div style="display: flex; gap: 0.5rem;">
                         <form action="import_warga.php" method="POST" enctype="multipart/form-data" id="importForm"
                             style="display: none;">
-                            <input type="file" name="file_csv" id="file_csv" accept=".csv"
+                            <input type="file" name="file_csv" id="file_csv" accept=".csv, .xlsx"
                                 onchange="document.getElementById('importForm').submit();">
                         </form>
                         <a href="warga.php?delete_all=1" class="btn btn-danger"
@@ -139,7 +139,7 @@ if ($offset < 0) {
                         <button type="button" onclick="document.getElementById('file_csv').click();"
                             class="btn btn-secondary"
                             style="padding: 0.8rem 1.5rem; border-radius: 50px; background-color: #10b981; color: white; border: none; font-weight: 500;"><i
-                                class="fa-solid fa-file-import"></i> Impor (CSV)</button>
+                                class="fa-solid fa-file-import"></i> Impor (CSV / Excel)</button>
                         <form action="prediksi.php" method="POST" style="display: inline-block; margin: 0;">
                             <input type="hidden" name="proses_semua" value="1">
                             <button type="submit" class="btn btn-primary"
