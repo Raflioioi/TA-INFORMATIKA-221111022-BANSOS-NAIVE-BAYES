@@ -165,7 +165,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file_csv'])) {
                 $_SESSION['msg_type'] = "error";
             }
         } else {
-            $_SESSION['msg'] = "Masalah pengunggahan file.";
+            $errorCode = $_FILES['file_csv']['error'] ?? UPLOAD_ERR_OK;
+            switch ($errorCode) {
+                case UPLOAD_ERR_INI_SIZE:
+                    $errorMsg = "Ukuran file melebihi batas upload maksimal server (upload_max_filesize di php.ini).";
+                    break;
+                case UPLOAD_ERR_FORM_SIZE:
+                    $errorMsg = "Ukuran file melebihi batas upload maksimal formulir.";
+                    break;
+                case UPLOAD_ERR_PARTIAL:
+                    $errorMsg = "File hanya terunggah sebagian.";
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    $errorMsg = "Tidak ada file yang diunggah.";
+                    break;
+                case UPLOAD_ERR_NO_TMP_DIR:
+                    $errorMsg = "Folder sementara PHP hilang.";
+                    break;
+                case UPLOAD_ERR_CANT_WRITE:
+                    $errorMsg = "Gagal menulis file ke penyimpanan server.";
+                    break;
+                case UPLOAD_ERR_EXTENSION:
+                    $errorMsg = "Unggahan dihentikan oleh ekstensi PHP.";
+                    break;
+                default:
+                    $errorMsg = "Masalah pengunggahan file (Kode Error: $errorCode).";
+                    break;
+            }
+            $_SESSION['msg'] = $errorMsg;
             $_SESSION['msg_type'] = "error";
         }
     } else {

@@ -11,6 +11,10 @@ RUN apt-get update && apt-get install -y \
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
+# Configure custom php settings (increase file upload limit to 20MB)
+RUN echo "upload_max_filesize = 20M" > /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size = 20M" >> /usr/local/etc/php/conf.d/uploads.ini
+
 # Set working directory
 WORKDIR /var/www/html
 
