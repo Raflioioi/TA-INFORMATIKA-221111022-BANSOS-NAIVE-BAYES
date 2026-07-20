@@ -1,0 +1,52 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: bansos-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: db_bansos
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db_bansos.sql:/docker-entrypoint-initdb.d/db_bansos.sql
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: bansos-api
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=rootpassword
+      - DB_NAME=db_bansos
+      - API_PORT=5000
+    depends_on:
+      - db
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bansos-web
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=rootpassword
+      - DB_NAME=db_bansos
+      - API_HOST=api
+      - API_PORT=5000
+    depends_on:
+      - db
+      - api
+
+volumes:
+  db-data:

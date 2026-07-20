@@ -1,5 +1,5 @@
 <?php
-require_once 'c:/xampp/htdocs/bansos-app/config/database.php';
+require_once __DIR__ . '/config/database.php';
 
 // Hapus data lama
 $pdo->exec("TRUNCATE TABLE warga"); 

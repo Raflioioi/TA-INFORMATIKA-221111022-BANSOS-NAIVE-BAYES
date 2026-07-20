@@ -1,5 +1,5 @@
 <?php
-require_once 'c:/xampp/htdocs/bansos-app/config/database.php';
+require_once __DIR__ . '/config/database.php';
 try {
     $pdo->exec("ALTER TABLE warga MODIFY penghasilan VARCHAR(50) NOT NULL");
     $pdo->exec("ALTER TABLE warga MODIFY jumlah_tanggungan VARCHAR(50) NOT NULL");

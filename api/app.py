@@ -10,10 +10,10 @@ import re
 app = FastAPI()
 
 # Config Database
-DB_HOST = 'localhost'
-DB_USER = 'root'
-DB_PASSWORD = ''
-DB_NAME = 'db_bansos'
+DB_HOST = os.environ.get('DB_HOST', 'localhost')
+DB_USER = os.environ.get('DB_USER', 'root')
+DB_PASSWORD = os.environ.get('DB_PASSWORD', '')
+DB_NAME = os.environ.get('DB_NAME', 'db_bansos')
 
 def get_db_connection():
     return pymysql.connect(
@@ -228,5 +228,7 @@ def predict_all():
         conn.close()
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="127.0.0.1", port=5000)
+    host = os.environ.get('API_BIND_HOST', '0.0.0.0')
+    port = int(os.environ.get('API_PORT', 5000))
+    uvicorn.run(app, host=host, port=port)
 

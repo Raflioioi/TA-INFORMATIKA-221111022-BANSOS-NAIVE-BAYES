@@ -1,9 +1,9 @@
 <?php
 // Koneksi Database Menggunakan PDO
-$host = '127.0.0.1';
-$db = 'db_bansos';
-$user = 'root'; // Pastikan sesuai dengan XAMPP
-$pass = '';     // Secara default XAMPP menggunakan password kosong
+$host = getenv('DB_HOST') ?: '127.0.0.1';
+$db = getenv('DB_NAME') ?: 'db_bansos';
+$user = getenv('DB_USER') ?: 'root'; // Pastikan sesuai dengan XAMPP
+$pass = getenv('DB_PASSWORD') !== false ? getenv('DB_PASSWORD') : '';     // Secara default XAMPP menggunakan password kosong
 
 try {
     $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";

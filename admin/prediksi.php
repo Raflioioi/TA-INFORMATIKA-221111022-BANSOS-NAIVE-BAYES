@@ -8,7 +8,9 @@ if (!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] !== true) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['proses_semua'])) {
-    $url = "http://localhost:5000/predict_all";
+    $api_host = getenv('API_HOST') ?: 'localhost';
+    $api_port = getenv('API_PORT') ?: '5000';
+    $url = "http://$api_host:$api_port/predict_all";
 
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -76,7 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_warga'])) {
     }
 
     // --- MENGGUNAKAN API PYTHON ---
-    $url = "http://localhost:5000/predict?id_warga=" . $id_warga;
+    $api_host = getenv('API_HOST') ?: 'localhost';
+    $api_port = getenv('API_PORT') ?: '5000';
+    $url = "http://$api_host:$api_port/predict?id_warga=" . $id_warga;
     
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
